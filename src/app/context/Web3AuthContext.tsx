@@ -18,11 +18,51 @@ import {
 } from "@web3auth/wallet-connect-v2-adapter";
 import { createContext, useEffect, useState } from "react";
 
-const clientId = process.env.WEB3AUTH_CLIENT_ID || "";
+const clientId =
+  process.env.WEB3AUTH_CLIENT_ID ??
+  "BJl-l28jvlzV43WcLuULapKy1QE9tWpXR8ujdjPNpSmY_QHNtS3nrq1USqOpsypsqyXNTZQ9ua3FVWvAi-rmvFw";
 
-export const Web3AuthContext = createContext({});
+interface IWeb3AuthContextProps {
+  data: {
+    login: () => void;
+    authenticateUser: () => void;
+    getUserInfo: () => void;
+    logout: () => void;
+    showWCM: () => void;
+    initiateTopUp: () => void;
+    getChainId: () => void;
+    addChain: () => void;
+    switchChain: () => void;
+    getAccounts: () => void;
+    getBalance: () => void;
+    sendTransaction: () => void;
+    signMessage: () => void;
+    getPrivateKey: () => void;
+  };
+}
 
-export const Web3AuthContextProvider = (props: { children: React.ReactNode }) => {
+export const Web3AuthContext = createContext<IWeb3AuthContextProps>({
+  data: {
+    login: () => {},
+    authenticateUser: () => {},
+    getUserInfo: () => {},
+    logout: () => {},
+    showWCM: () => {},
+    initiateTopUp: () => {},
+    getChainId: () => {},
+    addChain: () => {},
+    switchChain: () => {},
+    getAccounts: () => {},
+    getBalance: () => {},
+    sendTransaction: () => {},
+    signMessage: () => {},
+    getPrivateKey: () => {},
+  },
+});
+
+export const Web3AuthContextProvider = (props: {
+  children: React.ReactNode;
+}) => {
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
   const [torusPlugin, setTorusPlugin] =
     useState<TorusWalletConnectorPlugin | null>(null);
