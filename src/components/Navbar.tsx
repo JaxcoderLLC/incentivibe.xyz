@@ -40,11 +40,19 @@ const Navbar = () => {
           ))}
         </div>
         <div className="flex max-w-[240px] bg-indigo-600 p-2 px-4 rounded-lg hover:bg-indigo-300">
-          <button onClick={() => {
-            console.log("Connect Wallet");
-            data.login();
-          }}>
-            Connect Wallet
+          <button
+            onClick={() => {
+              if (data.loggedIn) {
+                // TODO: add modal to disconnect wallet on click when logged in
+                data.logout();
+              } else {
+                console.log("Connect Wallet");
+                data.login();
+                data.getUserInfo();
+              }
+            }}
+          >
+            {data.loggedIn ? "Connected" : "Connect Wallet"}
           </button>
         </div>
       </nav>

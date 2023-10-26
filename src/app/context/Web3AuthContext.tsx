@@ -19,12 +19,13 @@ import {
 import { createContext, useEffect, useState } from "react";
 
 const clientId =
-  process.env.WEB3AUTH_CLIENT_ID ??
+  process.env.NEXT_APP_WEB3AUTH_CLIENT_ID ??
   "BJl-l28jvlzV43WcLuULapKy1QE9tWpXR8ujdjPNpSmY_QHNtS3nrq1USqOpsypsqyXNTZQ9ua3FVWvAi-rmvFw";
 
 interface IWeb3AuthContextProps {
   data: {
     login: () => void;
+    loggedIn: boolean;
     authenticateUser: () => void;
     getUserInfo: () => void;
     logout: () => void;
@@ -44,6 +45,7 @@ interface IWeb3AuthContextProps {
 export const Web3AuthContext = createContext<IWeb3AuthContextProps>({
   data: {
     login: () => {},
+    loggedIn: false,
     authenticateUser: () => {},
     getUserInfo: () => {},
     logout: () => {},
@@ -194,6 +196,7 @@ export const Web3AuthContextProvider = (props: {
     }
     const web3authProvider = await web3auth.connect();
     setProvider(web3authProvider);
+    setLoggedIn(true);
   };
 
   const authenticateUser = async () => {
@@ -426,6 +429,7 @@ export const Web3AuthContextProvider = (props: {
 
   const data = {
     login,
+    loggedIn,
     authenticateUser,
     getUserInfo,
     logout,
