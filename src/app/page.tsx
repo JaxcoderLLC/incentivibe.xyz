@@ -1,3 +1,4 @@
+import Home from "@/components/Home";
 import Image from "next/image";
 
 const HomePage = () => {
@@ -6,10 +7,6 @@ const HomePage = () => {
       <Home />
     </main>
   );
-};
-
-const Home = () => {
-  return <div>Hello Shit world</div>;
 };
 
 export default HomePage;
