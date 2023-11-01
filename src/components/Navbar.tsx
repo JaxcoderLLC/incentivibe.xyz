@@ -1,6 +1,5 @@
-import { Web3AuthContext } from "@/app/context/Web3AuthContext";
+// import { Web3AuthContext } from "@/app/context/Web3AuthContext";
 import Link from "next/link";
-import Image from "next/image";
 import { useContext, useState } from "react";
 
 // const logo = "https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600";
@@ -13,7 +12,7 @@ const navigation = [
 ];
 
 const Navbar = () => {
-  const { data } = useContext(Web3AuthContext);
+  // const { data } = useContext(Web3AuthContext);
 
   return (
     <div>
@@ -44,20 +43,23 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        <div className="flex max-w-[240px] bg-indigo-600 p-2 px-4 rounded-lg hover:bg-indigo-300">
+        <div className=" flex max-w-[240px] bg-indigo-600 p-2 px-4 rounded-lg hover:bg-indigo-300">
           <button
-            onClick={() => {
-              if (data.loggedIn) {
-                // TODO: add modal to disconnect wallet on click when logged in
-                data.logout();
-              } else {
-                console.log("Connect Wallet");
-                data.login();
-                data.getUserInfo();
-              }
-            }}
+            disabled={true}
+            className="cursor-not-allowed text-white text-sm font-semibold leading-6"
+            // onClick={() => {
+            //   if (data.loggedIn) {
+            //     // TODO: add modal to disconnect wallet on click when logged in
+            //     data.logout();
+            //   } else {
+            //     console.log("Connect Wallet");
+            //     data.login();
+            //     data.getUserInfo();
+            //   }
+            // }}
           >
-            {data.loggedIn ? "Connected" : "Connect Wallet"}
+            {/* {data.loggedIn ? "Connected" : "Connect Wallet"} */}
+            Connect
           </button>
         </div>
       </nav>

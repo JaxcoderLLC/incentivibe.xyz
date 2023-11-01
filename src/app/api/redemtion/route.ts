@@ -4,7 +4,7 @@ export function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const id = searchParams.get("id");
 
-  return Response.json({ id });
+  return Response.json({ message: "API working 🥳", id });
 }
 
 export async function POST(request: Request) {
