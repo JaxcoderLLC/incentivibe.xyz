@@ -1,10 +1,13 @@
 import { Web3AuthContext } from "@/app/context/Web3AuthContext";
 import Link from "next/link";
+import Image from "next/image";
 import { useContext, useState } from "react";
 
+// const logo = "https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600";
+
 const navigation = [
-  { name: "Product", href: "#" },
-  { name: "Features", href: "#" },
+  { name: "Products", href: "#" },
+  { name: "Our Mission", href: "#" },
   { name: "Marketplace", href: "#" },
   { name: "Company", href: "#" },
 ];
@@ -21,11 +24,13 @@ const Navbar = () => {
         <div className="flex">
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
-            <img
+            {/* <Image
               className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              src={logo}
               alt=""
-            />
+              width={32}
+              height={32}
+            /> */}
           </a>
         </div>
         <div className="flex gap-x-12">
@@ -33,7 +38,7 @@ const Navbar = () => {
             <Link
               key={item.name}
               href={item.href}
-              className="text-sm font-semibold leading-6 text-gray-900"
+              className="text-sm font-semibold leading-6 text-white"
             >
               {item.name}
             </Link>

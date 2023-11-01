@@ -15,6 +15,14 @@ const config: Config = {
       },
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "tailwindui.com",
+      },
+    ],
+  },
   plugins: [],
 };
 export default config;
