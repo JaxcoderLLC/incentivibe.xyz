@@ -1,7 +1,7 @@
 const Redeem = () => {
   return (
     <div className="">
-      <div className="text-xl text-white">Redeem</div>
+      <div className="text-xl">Redeem</div>
     </div>
   );
 };

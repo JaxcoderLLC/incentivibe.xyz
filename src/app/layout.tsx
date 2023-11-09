@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-gradient-to-r from-teal-300 to-teal-600 text-white`}>
         {/* Header */}
         <header className="absolute inset-x-0 top-0 z-50">
           <Navbar />
