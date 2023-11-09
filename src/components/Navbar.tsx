@@ -6,9 +6,9 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import RPC from "../utils/ethersRPC";
 import Link from "next/link";
 import { IProvider, CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
-import { Web3Auth } from "@web3auth/modal";
 import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
+import { web3auth } from "@/utils/torusWallet";
 
 const navigation = [
   { name: "Dashboard", href: "/", current: true },
@@ -20,19 +20,6 @@ const userNavigation = [
   { name: "Settings", href: "/settings" },
   { name: "Sign out", href: "/log-out" },
 ];
-
-const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID!;
-const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL!;
-
-const web3auth = new Web3Auth({
-  clientId,
-  chainConfig: {
-    chainNamespace: CHAIN_NAMESPACES.EIP155,
-    chainId: "5",
-    rpcTarget: rpcUrl,
-  },
-  web3AuthNetwork: "sapphire_devnet",
-});
 
 export default function Navbar() {
   // const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
@@ -298,26 +285,6 @@ export default function Navbar() {
     const rpc = new RPC(provider);
     const chainId = await rpc.getChainId();
     uiConsole(chainId);
-  };
-
-  const addChain = async () => {
-    if (!provider) {
-      uiConsole("provider not initialized yet");
-
-      return;
-    }
-    const newChain = {
-      chainId: "0x5",
-      displayName: "Goerli",
-      chainNamespace: CHAIN_NAMESPACES.EIP155,
-      tickerName: "Goerli",
-      ticker: "ETH",
-      decimals: 18,
-      rpcTarget: "https://rpc.ankr.com/eth_goerli",
-      blockExplorer: "https://goerli.etherscan.io",
-    };
-    await web3auth?.addChain(newChain);
-    uiConsole("New Chain Added");
   };
 
   const switchChain = async () => {
