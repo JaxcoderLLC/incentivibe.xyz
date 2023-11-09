@@ -21,16 +21,21 @@ const userNavigation = [
   { name: "Sign out", href: "/log-out" },
 ];
 
-const clientId =
-  process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID!;
+const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID!;
 const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL!;
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+const web3auth = new Web3Auth({
+  clientId,
+  chainConfig: {
+    chainNamespace: CHAIN_NAMESPACES.EIP155,
+    chainId: "5",
+    rpcTarget: rpcUrl,
+  },
+  web3AuthNetwork: "sapphire_devnet",
+});
 
 export default function Navbar() {
-  const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
+  // const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
   const [torusPlugin, setTorusPlugin] =
     useState<TorusWalletConnectorPlugin | null>(null);
   const [provider, setProvider] = useState<IProvider | null>(null);
@@ -39,15 +44,15 @@ export default function Navbar() {
   useEffect(() => {
     const init = async () => {
       try {
-        const web3auth = new Web3Auth({
-          clientId,
-          chainConfig: {
-            chainNamespace: CHAIN_NAMESPACES.EIP155,
-            chainId: "5",
-            rpcTarget: rpcUrl,
-          },
-          web3AuthNetwork: "sapphire_devnet",
-        });
+        // const web3auth = new Web3Auth({
+        //   clientId,
+        //   chainConfig: {
+        //     chainNamespace: CHAIN_NAMESPACES.EIP155,
+        //     chainId: "5",
+        //     rpcTarget: rpcUrl,
+        //   },
+        //   web3AuthNetwork: "sapphire_devnet",
+        // });
 
         const openloginAdapter = new OpenloginAdapter({
           loginSettings: {
@@ -129,7 +134,7 @@ export default function Navbar() {
         setTorusPlugin(torusPlugin);
         await web3auth.addPlugin(torusPlugin);
 
-        setWeb3auth(web3auth);
+        // setWeb3auth(web3auth);
 
         // await web3auth.initModal();
 
@@ -215,7 +220,6 @@ export default function Navbar() {
 
   const login = async () => {
     uiConsole("Logging in...");
-    alert("Logging in...");
     if (!web3auth) {
       uiConsole("web3auth not initialized yet");
 
@@ -276,6 +280,7 @@ export default function Navbar() {
       return;
     }
     torusPlugin.initiateTopup("moonpay", {
+      // FIXME: update this address
       selectedAddress: "0x8cFa648eBfD5736127BbaBd1d3cAe221B45AB9AF",
       selectedCurrency: "USD",
       fiatValue: 100,
@@ -442,13 +447,14 @@ export default function Navbar() {
                       console.log("login");
 
                       // log the user in
-                      await login();
+                      if (loggedIn) await logout();
+                      else await login();
 
                       console.log("login status:", loggedIn);
                     }}
                   >
                     {/* Add wallet connect button */}
-                    Connect
+                    {!loggedIn ? "Connect" : "Logout"}
                   </button>
                 </div>
                 <div className="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
@@ -475,17 +481,10 @@ export default function Navbar() {
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         {userNavigation.map((item) => (
                           <Menu.Item key={item.name}>
-                            {({ active }: { active: boolean }) => (
-                              <a
-                                href={item.href}
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}
-                              >
-                                {item.name}
-                              </a>
-                            )}
+                            {({ active }: { active: boolean }) => {
+                              console.log("active:", active);
+                              return <a href={item.href}>{item.name}</a>;
+                            }}
                           </Menu.Item>
                         ))}
                       </Menu.Items>
@@ -498,22 +497,21 @@ export default function Navbar() {
 
           <Disclosure.Panel className="md:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block rounded-md px-3 py-2 text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
+              {navigation.map((item) => {
+                console.log("item:", item);
+                if (loggedIn) {
+                  return (
+                    <Disclosure.Button
+                      key={item.name}
+                      as="a"
+                      href={item.href}
+                      aria-current={item.current ? "page" : undefined}
+                    >
+                      {item.name}
+                    </Disclosure.Button>
+                  );
+                }
+              })}
             </div>
             <div className="border-t border-gray-700 pb-3 pt-4">
               <div className="mt-3 space-y-1 px-2 sm:px-3">
