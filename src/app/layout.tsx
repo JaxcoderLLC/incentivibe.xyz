@@ -19,14 +19,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gradient-to-r from-teal-300 to-teal-600 text-white`}>
+      <body
+        className={`${inter.className} bg-gradient-to-r from-teal-300 to-teal-600 text-white`}
+      >
         {/* Header */}
         <header className="absolute inset-x-0 top-0 z-50">
           <Navbar />
         </header>
         <div className="isolate mt-20 text-center">
-          <Providers>{children}</Providers>
+          {/* <Providers>{children}</Providers> */}
+          {children}
         </div>
+        {/* Footer */}
+        <footer>
+          <div id="console" className="text-red">
+            <p></p>
+          </div>
+        </footer>
       </body>
     </html>
   );
