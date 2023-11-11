@@ -5,10 +5,12 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import RPC from "../utils/ethersRPC";
 import Link from "next/link";
+import Image from "next/image";
 import { IProvider, CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
 import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { web3auth } from "@/utils/torusWallet";
+import logo from "../assets/IncentivibeLogo.png";
 
 const navigation = [
   { name: "Dashboard", href: "/", current: true },
@@ -370,7 +372,7 @@ export default function Navbar() {
               <div className="flex">
                 <div className="-ml-2 mr-2 flex items-center md:hidden">
                   {/* Mobile menu button */}
-                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                     <span className="absolute -inset-0.5" />
                     <span className="sr-only">Open main menu</span>
                     {open ? (
@@ -380,17 +382,17 @@ export default function Navbar() {
                     )}
                   </Disclosure.Button>
                 </div>
-                <div className="flex flex-shrink-0 items-center cursor-pointer">
-                  {/* <Image
-                    className="h-8 w-auto"
+                <div className="hidden md:flex md:items-center md:cursor-pointer">
+                  <Image
+                    className="h-auto w-auto"
                     src={logo}
                     alt="Allo"
-                    height={32}
-                    width={32}
+                    height={64}
+                    width={64}
                     onClick={() => {
                       window.location.href = "/";
                     }}
-                  /> */}
+                  />
                 </div>
                 <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 cursor-pointer">
                   {navigation.map((item) => (
@@ -487,7 +489,7 @@ export default function Navbar() {
                     key={item.name}
                     as="a"
                     href={item.href}
-                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                    className="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-white hover:text-black"
                   >
                     {item.name}
                   </Disclosure.Button>
