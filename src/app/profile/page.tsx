@@ -1,7 +1,9 @@
+import ProfileHeader from "@/components/ProfileHeader";
+
 const ProfilePage = () => {
   return (
     <div className="">
-      <div className="text-xl">Profile</div>
+      <ProfileHeader />
     </div>
   );
 };

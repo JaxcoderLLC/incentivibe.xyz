@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 // import Providers from "../context/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600 text-white`}
+        className={`${inter.className} flex flex-col h-max justify-between bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600 text-gray-800`}
       >
         {/* Header */}
         <header className="absolute inset-x-0 top-0 z-50">
@@ -31,10 +32,8 @@ export default function RootLayout({
           {children}
         </div>
         {/* Footer */}
-        <footer>
-          <div id="console" className="text-red">
-            <p></p>
-          </div>
+        <footer className="absolute inset-x-0 bottom-0">
+          <Footer />
         </footer>
       </body>
     </html>
