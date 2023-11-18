@@ -10,7 +10,9 @@ import { IProvider, CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
 import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { web3auth } from "@/utils/torusWallet";
-import logo from "../assets/IncentivibeLogo.png";
+import logo from "../assets/IV_Logo_1.png";
+import Dropdown from "./Dropdown";
+import ToastNotification from "./ToastNotification";
 
 const navigation = [
   { name: "Dashboard", href: "/", current: true },
@@ -18,10 +20,18 @@ const navigation = [
   { name: "Calendar", href: "/calendar", current: false },
 ];
 const userNavigation = [
+  { name: "Dashboard", href: "/", current: true },
+  { name: "Redeem", href: "/redeem", current: false },
+  { name: "Calendar", href: "/calendar", current: false },
   { name: "My Profile", href: "/profile" },
   { name: "Settings", href: "/settings" },
   { name: "Sign out", href: "/log-out" },
 ];
+
+export type TToastNotification = {
+  show: boolean;
+  args: any[];
+};
 
 export default function Navbar() {
   // const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
@@ -29,6 +39,11 @@ export default function Navbar() {
     useState<TorusWalletConnectorPlugin | null>(null);
   const [provider, setProvider] = useState<IProvider | null>(null);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [toastNotification, setToastNotification] =
+    useState<TToastNotification>({
+      show: false,
+      args: [],
+    });
 
   useEffect(() => {
     const init = async () => {
@@ -208,9 +223,9 @@ export default function Navbar() {
   }, []);
 
   const login = async () => {
-    uiConsole("Logging in...");
+    setToast("Logging in...");
     if (!web3auth) {
-      uiConsole("web3auth not initialized yet");
+      setToast("web3auth not initialized yet");
 
       return false;
     }
@@ -223,27 +238,27 @@ export default function Navbar() {
 
   const authenticateUser = async () => {
     if (!web3auth) {
-      uiConsole("web3auth not initialized yet");
+      setToast("web3auth not initialized yet");
 
       return;
     }
     const idToken = await web3auth.authenticateUser();
-    uiConsole(idToken);
+    setToast(idToken);
   };
 
   const getUserInfo = async () => {
     if (!web3auth) {
-      uiConsole("web3auth not initialized yet");
+      setToast("web3auth not initialized yet");
 
       return;
     }
     const user = await web3auth.getUserInfo();
-    uiConsole(user);
+    setToast(user);
   };
 
   const logout = async () => {
     if (!web3auth) {
-      uiConsole("web3auth not initialized yet");
+      setToast("web3auth not initialized yet");
 
       return;
     }
@@ -254,17 +269,17 @@ export default function Navbar() {
 
   const showWCM = async () => {
     if (!torusPlugin) {
-      uiConsole("torus plugin not initialized yet");
+      setToast("torus plugin not initialized yet");
 
       return;
     }
     torusPlugin.showWalletConnectScanner();
-    uiConsole();
+    setToast();
   };
 
   const initiateTopUp = async () => {
     if (!torusPlugin) {
-      uiConsole("torus plugin not initialized yet");
+      setToast("torus plugin not initialized yet");
 
       return;
     }
@@ -280,84 +295,81 @@ export default function Navbar() {
 
   const getChainId = async () => {
     if (!provider) {
-      uiConsole("provider not initialized yet");
+      setToast("provider not initialized yet");
 
       return;
     }
     const rpc = new RPC(provider);
     const chainId = await rpc.getChainId();
-    uiConsole(chainId);
+    setToast(chainId);
   };
 
   const switchChain = async () => {
     if (!provider) {
-      uiConsole("provider not initialized yet");
+      setToast("provider not initialized yet");
 
       return;
     }
     await web3auth?.switchChain({ chainId: "0x5" });
-    uiConsole("Chain Switched");
+    setToast("Chain Switched");
   };
 
   const getAccounts = async () => {
     if (!provider) {
-      uiConsole("provider not initialized yet");
+      setToast("provider not initialized yet");
 
       return;
     }
     const rpc = new RPC(provider);
     const address = await rpc.getAccounts();
-    uiConsole(address);
+    setToast(address);
   };
 
   const getBalance = async () => {
     if (!provider) {
-      uiConsole("provider not initialized yet");
+      setToast("provider not initialized yet");
       return;
     }
     const rpc = new RPC(provider);
     const balance = await rpc.getBalance();
-    uiConsole(balance);
+    setToast(balance);
   };
 
   const sendTransaction = async () => {
     if (!provider) {
-      uiConsole("provider not initialized yet");
+      setToast("provider not initialized yet");
 
       return;
     }
     const rpc = new RPC(provider);
     const receipt = await rpc.sendTransaction();
-    uiConsole(receipt);
+    setToast(receipt);
   };
 
   const signMessage = async () => {
     if (!provider) {
-      uiConsole("provider not initialized yet");
+      setToast("provider not initialized yet");
 
       return;
     }
     const rpc = new RPC(provider);
     const signedMessage = await rpc.signMessage();
-    uiConsole(signedMessage);
+    setToast(signedMessage);
   };
 
   const getPrivateKey = async () => {
     if (!provider) {
-      uiConsole("provider not initialized yet");
+      setToast("provider not initialized yet");
 
       return;
     }
     const rpc = new RPC(provider);
     const privateKey = await rpc.getPrivateKey();
-    uiConsole(privateKey);
+    setToast(privateKey);
   };
 
-  function uiConsole(...args: any[]): void {
-    const el = document.querySelector("#console>p");
-    if (el) {
-      el.innerHTML = JSON.stringify(args || {}, null, 2);
-    }
+  function setToast(...args: any[]) {
+    setToastNotification({ show: true, args: args });
   }
 
   return (
@@ -368,6 +380,11 @@ export default function Navbar() {
       {({ open }: { open: boolean }) => (
         <>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            {toastNotification.show ? (
+              <ToastNotification args={toastNotification.args} />
+            ) : (
+              <></>
+            )}
             <div className="flex h-16 justify-between">
               <div className="flex">
                 <div className="-ml-2 mr-2 flex items-center md:hidden">
@@ -386,7 +403,7 @@ export default function Navbar() {
                   <Image
                     className="h-auto w-auto"
                     src={logo}
-                    alt="Allo"
+                    alt="IncentiVibe"
                     height={64}
                     width={64}
                     onClick={() => {
@@ -394,24 +411,27 @@ export default function Navbar() {
                     }}
                   />
                 </div>
-                <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 cursor-pointer">
+                <div className="hidden md:flex md:items-center md:space-x-4 cursor-pointer">
                   {navigation.map((item) => (
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="hover:bg-white hover:text-black rounded-md px-3 py-2 text-sm font-medium"
+                      className="px-3 py-2 text-sm font-medium"
                       aria-current={item.current ? "page" : undefined}
                     >
                       {item.name}
                     </Link>
                   ))}
                 </div>
+                <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 cursor-pointer">
+                  <Dropdown />
+                </div>
               </div>
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <button
                     type="button"
-                    className="relative inline-flex border border-white text-white hover:bg-white hover:text-black items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold"
+                    className="relative inline-flex border border-white text-whiteitems-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold"
                     onClick={async () => {
                       console.log("login");
 
@@ -489,7 +509,7 @@ export default function Navbar() {
                     key={item.name}
                     as="a"
                     href={item.href}
-                    className="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-white hover:text-black"
+                    className="block rounded-md px-3 py-2 text-base font-medium text-white"
                   >
                     {item.name}
                   </Disclosure.Button>
