@@ -15,7 +15,7 @@ import Dropdown from "./Dropdown";
 import ToastNotification from "./ToastNotification";
 
 const navigation = [
-  { name: "Dashboard", href: "/", current: true },
+  { name: "Dashboard", href: "/dashboard", current: true },
   { name: "Redeem", href: "/redeem", current: false },
   { name: "Calendar", href: "/calendar", current: false },
 ];
@@ -25,7 +25,7 @@ const userNavigation = [
   { name: "Calendar", href: "/calendar", current: false },
   { name: "My Profile", href: "/profile" },
   { name: "Settings", href: "/settings" },
-  { name: "Sign out", href: "/log-out" },
+  // { name: "Sign out", href: "/log-out" },
 ];
 
 export type TToastNotification = {
@@ -485,7 +485,7 @@ export default function Navbar() {
           </div>
 
           <Disclosure.Panel className="md:hidden">
-            <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+            <div className="hidden md:flex space-y-1 px-2 pb-3 pt-2 sm:px-3">
               {navigation.map((item) => {
                 console.log("item:", item);
                 if (loggedIn) {
