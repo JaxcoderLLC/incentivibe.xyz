@@ -77,8 +77,8 @@ const navigation = {
 
 const Footer = () => {
   return (
-    <div className="mx-auto max-w-7xl overflow-hidden px-6 py-4 sm:py-2 lg:px-8">
-      <nav
+    <div className="mx-auto max-w-7xl overflow-hidden px-6 py-2 sm:py-4 lg:px-8">
+      {/* <nav
         className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
         aria-label="Footer"
       >
@@ -92,7 +92,7 @@ const Footer = () => {
             </Link>
           </div>
         ))}
-      </nav>
+      </nav> */}
       <div className="mt-4 flex justify-center space-x-10">
         {navigation.social.map((item) => (
           <Link
@@ -106,7 +106,7 @@ const Footer = () => {
         ))}
       </div>
       <p className="mt-4 text-center text-xs leading-5 text-gray-900">
-        &copy; 2024 IncentiVibe, Inc. All rights reserved.
+        2024 IncentiVibe ❤️ 
       </p>
     </div>
   );

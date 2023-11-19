@@ -1,4 +1,4 @@
-import Dashboard from "@/components/Dashboard";
+import EventList from "@/components/EventList";
 import Hero from "@/components/Hero";
 
 const HomePage = () => {
@@ -6,6 +6,7 @@ const HomePage = () => {
     <main>
       <div>
         <Hero />
+        <EventList />
       </div>
     </main>
   );
