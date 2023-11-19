@@ -1,11 +1,7 @@
 import EventDetail from "@/components/EventDetail";
 
 const Event = () => {
-  return (
-    <div className="">
-      <EventDetail />
-    </div>
-  );
+  return <EventDetail />;
 };
 
 export default Event;
