@@ -32,7 +32,7 @@ export default function RootLayout({
           {children}
         </div>
         {/* Footer */}
-        <footer className="absolute inset-x-0 bottom-0">
+        <footer className="static inset-x-0 bottom-0">
           <Footer />
         </footer>
       </body>

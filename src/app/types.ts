@@ -15,6 +15,7 @@ export enum EEventStatus {
     name: string;
     description?: string;
     status: EEventStatus;
+    raised: number;
     createdBy: string;
     createdAt: string;
     startDate: string;

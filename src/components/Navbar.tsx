@@ -15,17 +15,8 @@ import Dropdown from "./Dropdown";
 import ToastNotification from "./ToastNotification";
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard", current: true },
   { name: "Redeem", href: "/redeem", current: false },
   { name: "Calendar", href: "/calendar", current: false },
-];
-const userNavigation = [
-  { name: "Dashboard", href: "/", current: true },
-  { name: "Redeem", href: "/redeem", current: false },
-  { name: "Calendar", href: "/calendar", current: false },
-  { name: "My Profile", href: "/profile" },
-  { name: "Settings", href: "/settings" },
-  // { name: "Sign out", href: "/log-out" },
 ];
 
 export type TToastNotification = {
@@ -34,16 +25,40 @@ export type TToastNotification = {
 };
 
 export default function Navbar() {
-  // const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
   const [torusPlugin, setTorusPlugin] =
     useState<TorusWalletConnectorPlugin | null>(null);
   const [provider, setProvider] = useState<IProvider | null>(null);
+  const [rpc, setRpc] = useState<RPC | null>(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [toastNotification, setToastNotification] =
     useState<TToastNotification>({
       show: false,
       args: [],
     });
+  const [profileId, setProfileId] = useState<`0x${string}`>("0x");
+
+  const userNavigation = [
+    { name: "Redeem", href: "/redeem", current: false },
+    { name: "Calendar", href: "/calendar", current: false },
+    { name: "My Profile", href: `/profile/${profileId}` },
+    { name: "Settings", href: "/settings" },
+    // { name: "Sign out", href: "/log-out" },
+  ];
+
+  useEffect(() => {
+    if (provider) {
+      setRpc(new RPC(provider));
+    }
+  }, [provider]);
+
+  useEffect(() => {
+    rpc?.getAccount().then((account) => {
+      if (account) {
+        console.log("setting profile id:", account);
+        setProfileId(account);
+      }
+    });
+  }, [provider, rpc]);
 
   useEffect(() => {
     const init = async () => {
@@ -223,7 +238,6 @@ export default function Navbar() {
   }, []);
 
   const login = async () => {
-    setToast("Logging in...");
     if (!web3auth) {
       setToast("web3auth not initialized yet");
 
@@ -232,6 +246,7 @@ export default function Navbar() {
     const web3authProvider = await web3auth.connect();
     setProvider(web3authProvider);
     setLoggedIn(true);
+    setToast("Logged in", "You can now browse and interact with events");
 
     return true;
   };
@@ -312,17 +327,6 @@ export default function Navbar() {
     }
     await web3auth?.switchChain({ chainId: "0x5" });
     setToast("Chain Switched");
-  };
-
-  const getAccounts = async () => {
-    if (!provider) {
-      setToast("provider not initialized yet");
-
-      return;
-    }
-    const rpc = new RPC(provider);
-    const address = await rpc.getAccounts();
-    setToast(address);
   };
 
   const getBalance = async () => {
@@ -424,7 +428,7 @@ export default function Navbar() {
                   ))}
                 </div>
                 <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 cursor-pointer">
-                  <Dropdown />
+                  <Dropdown profileId={profileId} />
                 </div>
               </div>
               <div className="flex items-center">
@@ -433,16 +437,10 @@ export default function Navbar() {
                     type="button"
                     className="relative inline-flex border border-white text-whiteitems-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold"
                     onClick={async () => {
-                      console.log("login");
-
-                      // log the user in
                       if (loggedIn) await logout();
                       else await login();
-
-                      console.log("login status:", loggedIn);
                     }}
                   >
-                    {/* Add wallet connect button */}
                     {!loggedIn ? "Connect" : "Logout"}
                   </button>
                 </div>
@@ -502,20 +500,34 @@ export default function Navbar() {
                 }
               })}
             </div>
-            <div className="border-t border-gray-700 pb-3 pt-4">
-              <div className="mt-3 space-y-1 px-2 sm:px-3">
-                {userNavigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className="block rounded-md px-3 py-2 text-base font-medium text-white"
-                  >
-                    {item.name}
-                  </Disclosure.Button>
-                ))}
+            {provider && rpc && loggedIn ? (
+              <div className="border-t border-gray-700 pb-3 pt-4">
+                <div className="mt-3 space-y-1 px-2 sm:px-3">
+                  {userNavigation.map((item) => (
+                    <Disclosure.Button
+                      key={item.name}
+                      as="a"
+                      href={item.href}
+                      className="block rounded-md px-3 py-2 text-base font-medium text-white"
+                    >
+                      {item.name}
+                    </Disclosure.Button>
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="border-t border-gray-700 pb-3 pt-4">
+                <div
+                  className="mt-3 space-y-1 px-2 sm:px-3"
+                  onClick={async () => {
+                    if (loggedIn) await logout();
+                    else await login();
+                  }}
+                >
+                  Connect
+                </div>
+              </div>
+            )}
           </Disclosure.Panel>
         </>
       )}

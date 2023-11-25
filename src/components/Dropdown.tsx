@@ -4,7 +4,9 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { classNames } from "@/utils/common";
 import Link from "next/link";
 
-export default function Example() {
+export default function Dropdown({ profileId }: { profileId: `0x${string}` }) {
+  const profileLink = `/profile/${profileId ?? "0x"}`;
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -31,7 +33,7 @@ export default function Example() {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href="/profile"
+                  href={profileLink}
                   className={classNames(
                     active ? "bg-gray-600 text-gray-900" : "text-gray-900",
                     "block px-4 py-2 text-sm"

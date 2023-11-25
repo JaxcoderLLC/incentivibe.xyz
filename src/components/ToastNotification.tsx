@@ -11,7 +11,7 @@ const ToastNotification = ({ args }: { args: any[] }) => {
       {/* Global notification live region, render this permanently at the end of the document */}
       <div
         aria-live="assertive"
-        className="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6"
+        className="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6 z-10"
       >
         <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
           {/* Notification panel, dynamically insert this into the live region when it needs to be displayed */}
@@ -25,7 +25,7 @@ const ToastNotification = ({ args }: { args: any[] }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+            <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-gray-400 shadow-lg ring-1 ring-black ring-opacity-5">
               <div className="p-4">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
@@ -36,16 +36,16 @@ const ToastNotification = ({ args }: { args: any[] }) => {
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
                     <p className="text-sm font-medium text-gray-900">
-                      Successfully saved!
+                      {args[0]}
                     </p>
-                    <p className="mt-1 text-sm text-gray-500">
-                      Anyone with a link can now view this file.
+                    <p className="mt-1 text-sm text-gray-800">
+                      {args[1]}
                     </p>
                   </div>
                   <div className="ml-4 flex flex-shrink-0">
                     <button
                       type="button"
-                      className="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="inline-flex rounded-md bg-gray-500 text-gray-400 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                       onClick={() => {
                         setShow(false);
                       }}
