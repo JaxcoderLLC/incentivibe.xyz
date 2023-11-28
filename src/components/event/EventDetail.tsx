@@ -16,6 +16,7 @@ const EventDetail = () => {
     id: params.id.toString(),
     name: "FWD Party VIP Dinner",
     status: EEventStatus.Pending,
+    raised: 120e18,
     createdBy: "Leslie Alexander",
     createdAt: "2023-03-17T00:00Z",
     startDate: "2023-03-17T00:00Z",

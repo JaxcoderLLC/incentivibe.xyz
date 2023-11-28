@@ -6,10 +6,8 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import RPC from "../utils/ethersRPC";
 import Link from "next/link";
 import Image from "next/image";
-import { IProvider, CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
-
+import { IProvider, WALLET_ADAPTERS } from "@web3auth/base";
 // import { initSilk } from "@silk-wallet/silk-wallet-sdk" // Needs to be added to utils
-
 import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { web3auth } from "@/utils/torusWallet";
@@ -28,8 +26,6 @@ export type TToastNotification = {
   args: any[];
 };
 
-        // Initialize Silk
-        const silk = initSilk()
 export default function Navbar() {
   // const silk = initSilk()
   const [torusPlugin, setTorusPlugin] =
@@ -144,19 +140,16 @@ export default function Navbar() {
         // plugins and adapters are optional and can be added as per your requirement
         // read more about plugins here: https://web3auth.io/docs/sdk/web/plugins/
 
-
-        ///////////////////////////
-
-        // Open the Silk login modal. silk.login() will throw if the user does not log in
-
-        // adding torus wallet connector plugin
         // SILK SILK SILK SILK SILK SILK
+        // Open the Silk login modal. silk.login() will throw if the user does not log in
+        // adding torus wallet connector plugin
         // try {
         //   await silk.login()
         // } catch (error) {
         //   console.log(error)
         // }
         // SILK SILK SILK SILK SILK SILK
+
         const torusPlugin = new TorusWalletConnectorPlugin({
           torusWalletOpts: {},
           walletInitOptions: {
@@ -176,7 +169,8 @@ export default function Navbar() {
         // await web3auth.initModal();
 
         // SILK SILK SILK
-        // const accounts = await silk.request({ method: 'eth_requestAccounts' })
+        // const accounts = await silk.request({ method: 'eth_requestAccounts' });
+
         await web3auth.initModal({
           modalConfig: {
             [WALLET_ADAPTERS.OPENLOGIN]: {
