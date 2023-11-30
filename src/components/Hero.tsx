@@ -8,11 +8,11 @@ const stats = [
 const Hero = () => {
   return (
     <div className="py-6 sm:py-3">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-none">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Trusted by event creators worldwide
+              Trusted by event creators and promoters worldwide
             </h2>
             <p className="mt-4 text-lg leading-8 text-gray-600">
               Lorem ipsum dolor sit amet consect adipisicing possimus.

@@ -66,7 +66,7 @@ function classNames(...classes: string[]) {
 const EventList = () => {
   return (
     <div className="px-8 pt-4">
-      <ul role="list" className="divide-y divide-gray-100">
+      <ul role="list" className="divide-y divide-neutral-700">
         {events.map((event) => (
           <li
             key={event.id}
@@ -96,10 +96,10 @@ const EventList = () => {
                 <p className="truncate">Created by {event.createdBy}</p>
               </div>
             </div>
-            <div className="flex flex-none items-center gap-x-4">
+            <div className="flex flex-none items-center gap-x-4 ">
               <Link
                 href={`/event/${event.id}`}
-                className="hidden rounded-md px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:block"
+                className="border mx-2 rounded-md px-4 py-2 text-sm font-medium border-neutral-700 text-gray-300 hover:bg-neutral-800/30 sm:block"
               >
                 View event<span className="sr-only">, {event.name}</span>
               </Link>

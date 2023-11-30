@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import React, { useEffect } from "react";
 import { initSilk } from "@silk-wallet/silk-wallet-sdk";
 import EventList from "@/components/event/EventList";
 import Hero from "@/components/Hero";
+import { Container } from "@/components/Container";
 
 const HomePage = () => {
   useEffect(() => {
@@ -22,12 +22,12 @@ const HomePage = () => {
 
   return (
     <main>
-      <div>
+      <Container>
         <Hero />
         <EventList />
-      </div>
+      </Container>
     </main>
   );
-}
+};
 
 export default HomePage;
