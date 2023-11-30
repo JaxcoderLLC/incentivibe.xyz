@@ -10,6 +10,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
     "@silk-wallet/silk-wallet-sdk": "^0.0.21",
     "next": "13.5.6",
     "react": "^18",
