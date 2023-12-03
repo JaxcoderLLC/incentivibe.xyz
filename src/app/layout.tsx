@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <Providers>
         <body
-          className={`${inter.className} flex flex-col h-max justify-between bg-gray-200 text-gray-700`}
+          className={`${inter.className} flex flex-col h-max justify-between text-gray-700`}
         >
           {/* Header */}
           <header className="absolute inset-x-0 top-0 z-50">

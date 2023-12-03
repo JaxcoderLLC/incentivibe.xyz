@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* body {
+  background-image: url("../assets/BG_Home1.png");
+}
+
+body::before {
+  opacity: 0.5;
+} */

@@ -99,7 +99,7 @@ const EventList = () => {
             <div className="flex flex-none items-center gap-x-4 ">
               <Link
                 href={`/event/${event.id}`}
-                className="border mx-2 rounded-md px-4 py-2 text-sm font-medium border-neutral-700 text-gray-300 hover:bg-neutral-800/30 sm:block"
+                className="border mx-2 rounded-md px-4 py-2 text-sm font-medium border-gray-300 text-gray-700 hover:bg-gray-100 sm:block"
               >
                 View event<span className="sr-only">, {event.name}</span>
               </Link>

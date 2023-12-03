@@ -8,6 +8,7 @@ import { publicProvider } from "wagmi/providers/public";
 // import { InjectedConnector } from "@wagmi/core";
 
 import dotenv from "dotenv";
+import { initSilk } from "@silk-wallet/silk-wallet-sdk";
 dotenv.config();
 
 const availableChains = [arbitrum, arbitrumGoerli, goerli];
@@ -26,6 +27,17 @@ const { publicClient, webSocketPublicClient } = configureChains(
     publicProvider(),
   ]
 );
+
+try {
+  setTimeout(() => {
+    const provider = initSilk();
+
+    // @ts-ignore
+    window.ethereum = provider;
+  });
+} catch (error) {
+  console.error(error);
+}
 
 // const connector = new InjectedConnector();
 

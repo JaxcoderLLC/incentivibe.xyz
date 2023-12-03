@@ -72,30 +72,32 @@ export default function Navbar() {
                     )}
                   </Disclosure.Button>
                 </div>
-                <div className="hidden md:flex md:items-center md:cursor-pointer">
-                  <Image
-                    className="h-auto w-auto"
-                    src={logo}
-                    alt="IncentiVibe"
-                    height={64}
-                    width={64}
-                    onClick={() => {
-                      window.location.href = "/";
-                    }}
-                  />
-                </div>
-                <div className="hidden md:flex md:items-center md:space-x-4 cursor-pointer">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className="px-3 py-2 text-sm font-medium"
-                      aria-current={item.current ? "page" : undefined}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                  <NavbarDropdown />
+                <div className="flex flex-row items-center">
+                  <div className="hidden md:flex md:items-center md:cursor-pointer">
+                    <Image
+                      className="h-auto w-auto"
+                      src={logo}
+                      alt="IncentiVibe"
+                      height={64}
+                      width={64}
+                      onClick={() => {
+                        window.location.href = "/";
+                      }}
+                    />
+                  </div>
+                  <div className="hidden md:flex md:items-center md:space-x-4 cursor-pointer">
+                    {navigation.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className="px-3 py-2 text-md font-medium"
+                        aria-current={item.current ? "page" : undefined}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                    <NavbarDropdown />
+                  </div>
                 </div>
                 {/* <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 cursor-pointer">
                   <ProfileDropdown profileId={profileId} />
@@ -110,7 +112,7 @@ export default function Navbar() {
                 <div className="flex-shrink-0">
                   {/* Add wallet connect here */}
                   <button
-                    className="border mx-2 border-gray-300 rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-neutral-700 dark:text-gray-300 dark:hover:bg-neutral-800/30"
+                    className="border mx-2 border-gray-300 rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                     onClick={() => {
                       // @ts-ignore
                       window.ethereum.login();
@@ -119,7 +121,7 @@ export default function Navbar() {
                     login
                   </button>
                   <button
-                    className="border mx-2 border-gray-300 rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-neutral-700 dark:text-gray-300 dark:hover:bg-neutral-800/30"
+                    className="border mx-2 border-gray-300 rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                     onClick={() => {
                       // @ts-ignore
                       window.ethereum.loginSelector();
