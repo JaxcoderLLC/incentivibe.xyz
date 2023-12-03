@@ -8,7 +8,8 @@ import Image from "next/image";
 import logo from "../assets/IV_Logo_1.png";
 // import Dropdown from "./Dropdown";
 import ToastNotification from "./ToastNotification";
-import { BellIcon } from "@heroicons/react/24/outline";
+// import { BellIcon } from "@heroicons/react/24/outline";
+import NavbarDropdown from "./NavbarDropdown";
 
 const navigation = [
   { name: "Redeem", href: "/redeem", current: false },
@@ -26,13 +27,13 @@ export default function Navbar() {
       show: false,
       args: [],
     });
-  const [profileId, setProfileId] = useState<`0x${string}`>("0x");
+  // const [profileId, setProfileId] = useState<`0x${string}`>("0x");
 
   const userNavigation = [
     { name: "Redeem", href: "/redeem", current: false },
     { name: "Calendar", href: "/calendar", current: false },
     // { name: "My Profile", href: `/profile/${profileId}` },
-    { name: "Settings", href: "/settings" },
+    // { name: "Settings", href: "/settings" },
   ];
 
   function setToast(...args: any[]) {
@@ -56,7 +57,7 @@ export default function Navbar() {
               <div className="flex">
                 <div className="-ml-2 mr-2 flex items-center md:hidden">
                   {/* Mobile menu button */}
-                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-200 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                     <span className="absolute -inset-0.5" />
                     <span className="sr-only">Open main menu</span>
                     {open ? (
@@ -89,9 +90,10 @@ export default function Navbar() {
                       {item.name}
                     </Link>
                   ))}
+                  <NavbarDropdown />
                 </div>
                 {/* <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 cursor-pointer">
-                  <Dropdown profileId={profileId} />
+                  <ProfileDropdown profileId={profileId} />
                 </div> */}
               </div>
               <div className="flex items-center">
@@ -118,14 +120,14 @@ export default function Navbar() {
                 </div>
                 <div className="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
                   {/* Notifications icon/button */}
-                  <button
+                  {/* <button
                     type="button"
-                    className="p-2 relative rounded-full text-sm font-medium border-neutral-700 text-gray-300 hover:bg-neutral-800/30"
+                    className="p-2 relative rounded-full text-sm font-medium border-neutral-700 text-gray-200 hover:bg-neutral-800/30"
                   >
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">View notifications</span>
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
+                  </button> */}
 
                   <Menu as="div" className="relative ml-3">
                     <Transition
@@ -176,7 +178,7 @@ export default function Navbar() {
                   key={"home"}
                   as="a"
                   href="/"
-                  className="block rounded-md px-3 py-2 text-base font-medium text-white"
+                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-200"
                 >
                   Home
                 </Disclosure.Button>
@@ -185,7 +187,7 @@ export default function Navbar() {
                     key={item.name}
                     as="a"
                     href={item.href}
-                    className="block rounded-md px-3 py-2 text-base font-medium text-white"
+                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-200"
                   >
                     {item.name}
                   </Disclosure.Button>

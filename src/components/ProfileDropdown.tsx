@@ -4,7 +4,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { classNames } from "@/utils/common";
 import Link from "next/link";
 
-export default function Dropdown({ profileId }: { profileId: `0x${string}` }) {
+export default function ProfileDropdown({ profileId }: { profileId: `0x${string}` }) {
   const profileLink = `/profile/${profileId ?? "0x"}`;
 
   return (
