@@ -10,10 +10,12 @@ import logo from "../assets/IV_Logo_1.png";
 import ToastNotification from "./ToastNotification";
 // import { BellIcon } from "@heroicons/react/24/outline";
 import NavbarDropdown from "./NavbarDropdown";
+import { useAccount, useConnect, useEnsName } from "wagmi";
 
 const navigation = [
-  { name: "Redeem", href: "/redeem", current: false },
-  { name: "Calendar", href: "/calendar", current: false },
+  // { name: "Redeem", href: "/redeem", current: false },
+  // { name: "Calendar", href: "/calendar", current: false },
+  { name: "New Event", href: "/event/new", current: false },
 ];
 
 export type TToastNotification = {
@@ -28,10 +30,13 @@ export default function Navbar() {
       args: [],
     });
   // const [profileId, setProfileId] = useState<`0x${string}`>("0x");
+  const { address, isConnected } = useAccount();
+  const { data: ensName } = useEnsName({ address });
 
   const userNavigation = [
-    { name: "Redeem", href: "/redeem", current: false },
-    { name: "Calendar", href: "/calendar", current: false },
+    { name: "New Event", href: "/event/new", current: false },
+    // { name: "Redeem", href: "/redeem", current: false },
+    // { name: "Calendar", href: "/calendar", current: false },
     // { name: "My Profile", href: `/profile/${profileId}` },
     // { name: "Settings", href: "/settings" },
   ];
@@ -97,6 +102,11 @@ export default function Navbar() {
                 </div> */}
               </div>
               <div className="flex items-center">
+                {isConnected ? (
+                  <div>Hi, {ensName}</div>
+                ) : (
+                  <div>Not connected</div>
+                )}
                 <div className="flex-shrink-0">
                   {/* Add wallet connect here */}
                   <button
