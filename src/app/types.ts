@@ -35,6 +35,18 @@ export interface IEvent {
   endDate: string;
 }
 
+export type TNewEvent = {
+  profileId: string;
+  useRegistryAnchor: boolean;
+  profileName: string;
+  name: string;
+  website: string;
+  description?: string;
+  startDate: string;
+  endDate: string;
+  tokenAddress: string;
+};
+
 export interface IEventList {
   events: IEvent[];
 }
@@ -51,3 +63,22 @@ export interface IEventContextProps {
   eventStatus: EEventStatus;
   setEventStatus: React.Dispatch<React.SetStateAction<EEventStatus>>;
 }
+
+export type TProfilesByOwnerResponse = {
+  profileId: string;
+  name: string;
+  owner: string;
+  createdAt: string;
+  anchor: string;
+};
+
+export type TProfileResponse = {
+  profileId: string;
+  nonce: number;
+  name: string;
+  metadataPointer: string;
+  owner: string;
+  anchor: string;
+  creator: string;
+  createdAt: string;
+};

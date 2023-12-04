@@ -30,7 +30,7 @@ export default function RootLayout({
           <header className="absolute inset-x-0 top-0 z-50">
             <Navbar />
           </header>
-          <div className="isolate mt-20 text-center">{children}</div>
+          <div className="isolate mt-20">{children}</div>
           {/* Footer */}
           <footer className="static inset-x-0 bottom-0">
             <Footer />

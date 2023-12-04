@@ -86,7 +86,7 @@ export default function Navbar() {
                     />
                   </div>
                   <div className="hidden md:flex md:items-center md:space-x-4 cursor-pointer">
-                    {navigation.map((item) => (
+                    {/* {navigation.map((item) => (
                       <Link
                         key={item.name}
                         href={item.href}
@@ -95,7 +95,7 @@ export default function Navbar() {
                       >
                         {item.name}
                       </Link>
-                    ))}
+                    ))} */}
                     <NavbarDropdown />
                   </div>
                 </div>

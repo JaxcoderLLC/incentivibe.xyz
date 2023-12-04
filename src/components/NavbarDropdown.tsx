@@ -6,12 +6,12 @@ import Link from "next/link";
 
 export default function NavbarDropdown() {
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative inline-block text-left ml-4">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 bg-transparent text-gray-600">
-          Manage
+          Events
           <ChevronDownIcon
-            className="-mr-1 h-5 w-5 text-gray-200"
+            className="-mr-1 h-5 w-5 mt-1 text-gray-600"
             aria-hidden="true"
           />
         </Menu.Button>
@@ -38,6 +38,20 @@ export default function NavbarDropdown() {
                   )}
                 >
                   Create Event
+                </Link>
+              )}
+            </Menu.Item>
+            {/* if use has events show this */}
+            <Menu.Item>
+              {({ active }) => (
+                <Link
+                  href={`/event/user/${0xdbaed869fa387e43fc26a42928c1cf398bc60ba1}`}
+                  className={classNames(
+                    active ? "text-gray-300" : "text-gray-200",
+                    "block px-4 py-2 text-sm"
+                  )}
+                >
+                  My Events
                 </Link>
               )}
             </Menu.Item>

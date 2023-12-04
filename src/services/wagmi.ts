@@ -32,8 +32,12 @@ try {
   setTimeout(() => {
     const provider = initSilk();
 
-    // @ts-ignore
-    window.ethereum = provider;
+    if (provider) {
+      // @ts-ignore
+      window.ethereum = provider;
+
+      console.log("Silk wallet injected");
+    }
   });
 } catch (error) {
   console.error(error);
