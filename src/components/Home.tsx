@@ -1,24 +1,26 @@
 "use client";
 
-// import React, { useEffect } from "react";
-// import { initSilk } from "@silk-wallet/silk-wallet-sdk";
+import React, { useEffect } from "react";
+import { initSilk } from "@silk-wallet/silk-wallet-sdk";
 import EventList from "@/components/event/EventList";
 import Hero from "@/components/Hero";
 import { Container } from "@/components/Container";
 
 const Home = () => {
-  // useEffect(() => {
-  //   try {
-  //     setTimeout(() => {
-  //       const provider = initSilk();
+  useEffect(() => {
+    try {
+      setTimeout(() => {
+        const provider = initSilk();
 
-  //       // @ts-ignore
-  //       window.ethereum = provider;
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, []);
+        // @ts-ignore
+        window.ethereum = provider;
+
+        console.log("provider", { eth: window.ethereum, provider });
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   // TODO: fetch the actual stats we want to show
   const stats = [
