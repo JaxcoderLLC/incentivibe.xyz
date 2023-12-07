@@ -7,8 +7,24 @@ import Hero from "@/components/Hero";
 import { Container } from "@/components/Container";
 import { useConnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
+import CommunityList from "./commuinity/CommunityList";
 
 const Home = () => {
+  useEffect(() => {
+    try {
+      setTimeout(() => {
+        const provider = initSilk();
+
+        // @ts-ignore
+        window.ethereum = provider;
+        // provider.login();
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
+
   // TODO: fetch the actual stats we want to show
   const stats = [
     { id: 1, name: "Creators on the platform", value: "80+" },
@@ -21,7 +37,7 @@ const Home = () => {
     <main>
       <Container>
         <Hero stats={stats} />
-        <EventList />
+        <CommunityList />
       </Container>
     </main>
   );

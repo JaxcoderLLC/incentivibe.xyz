@@ -15,8 +15,7 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 import { initSilk } from "@silk-wallet/silk-wallet-sdk";
 
 const navigation = [
-  // { name: "Redeem", href: "/redeem", current: false },
-  // { name: "Calendar", href: "/calendar", current: false },
+  { name: "New Community", href: "/community/new", current: false },
   { name: "New Event", href: "/event/new", current: false },
 ];
 
@@ -39,11 +38,8 @@ export default function Navbar() {
   const { data: ensName } = useEnsName({ address });
 
   const userNavigation = [
+    { name: "New Community", href: "/community/new", current: false },
     { name: "New Event", href: "/event/new", current: false },
-    // { name: "Redeem", href: "/redeem", current: false },
-    // { name: "Calendar", href: "/calendar", current: false },
-    // { name: "My Profile", href: `/profile/${profileId}` },
-    // { name: "Settings", href: "/settings" },
   ];
 
   useEffect(() => {
@@ -104,7 +100,7 @@ export default function Navbar() {
                     />
                   </div>
                   <div className="hidden md:flex md:items-center md:space-x-4 cursor-pointer">
-                    {/* {navigation.map((item) => (
+                    {navigation.map((item) => (
                       <Link
                         key={item.name}
                         href={item.href}
@@ -113,8 +109,8 @@ export default function Navbar() {
                       >
                         {item.name}
                       </Link>
-                    ))} */}
-                    <NavbarDropdown />
+                    ))}
+                    {/* <NavbarDropdown /> */}
                   </div>
                 </div>
                 {/* <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 cursor-pointer">

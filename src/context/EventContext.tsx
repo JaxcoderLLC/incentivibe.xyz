@@ -1,14 +1,14 @@
 "use client";
 
 import { createContext, useEffect, useState } from "react";
-import { EEventStatus, IEventContextProps, TEventList } from "../app/types";
+import { TStatus, IEventContextProps, TEventList } from "../app/types";
 
 export const EventContext = createContext<IEventContextProps>({
   isLoaded: false,
   events: [],
   createEvent: () => Promise.resolve("0x"),
-  updateEvent: (id: string, status: EEventStatus) => Promise.resolve(),
-  eventStatus: EEventStatus.Pending,
+  updateEvent: (id: string, status: TStatus) => Promise.resolve(),
+  eventStatus: "Pending" as TStatus,
   setEventStatus: () => {},
 });
 
@@ -18,9 +18,7 @@ export const EventContextProvider = (props: {
   const { children } = props;
   const [isLoaded, setIsLoaded] = useState(false);
   const [events, setEvents] = useState<TEventList>([]);
-  const [eventStatus, setEventStatus] = useState<EEventStatus>(
-    EEventStatus.Pending
-  );
+  const [eventStatus, setEventStatus] = useState<TStatus>("Pending" as TStatus);
 
   useEffect(() => {
     console.log("fetching events");

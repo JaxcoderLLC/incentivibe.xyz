@@ -4,7 +4,12 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { TNewEvent, TProfilesByOwnerResponse } from "@/app/types";
+import {
+  TCommunityStatus,
+  TNewCommunity,
+  TProfilesByOwnerResponse,
+  TStatus,
+} from "@/app/types";
 import Error from "@/components/Error";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useAccount, useNetwork } from "wagmi";
@@ -12,18 +17,18 @@ import getProfilesByOwner from "@/services/request";
 import { switchNetwork } from "wagmi/actions";
 
 const schema = yup.object({
-  profileId: yup
-    .string()
-    .required("Profile ID is required")
-    .test("address-check", "Must start with 0x", (value) =>
-      value?.toLowerCase()?.startsWith("0x")
-    ),
+  // profileId: yup
+  //   .string()
+  //   .required("Profile ID is required")
+  //   .test("address-check", "Must start with 0x", (value) =>
+  //     value?.toLowerCase()?.startsWith("0x")
+  //   ),
   useRegistryAnchor: yup.string().required("Registry anchor is required"),
-  profilename: yup.string().when("profileId", {
-    is: (profileId: string) => profileId.trim() === "0x0",
-    then: () => yup.string().required("Profile name is required"),
-    otherwise: () => yup.string().notRequired(),
-  }),
+  // profilename: yup.string().when("profileId", {
+  //   is: (profileId: string) => profileId.trim() === "0x0",
+  //   then: () => yup.string().required("Profile name is required"),
+  //   otherwise: () => yup.string().notRequired(),
+  // }),
   name: yup.string().required().min(6, "Must be at least 6 characters"),
   website: yup.string().required().url("Must be a valid website address"),
   description: yup.string().required().min(10, "Must be at least 150 words"),
@@ -32,7 +37,7 @@ const schema = yup.object({
   tokenAddress: yup.string().notRequired(),
 });
 
-const EventForm = () => {
+const CommunityForm = () => {
   const {
     register,
     handleSubmit,
@@ -46,9 +51,9 @@ const EventForm = () => {
 
   const [createNewProfile, setCreateNewProfile] = useState<boolean>(false);
   const [profiles, setProfiles] = useState<TProfilesByOwnerResponse[]>([]);
-  const [newEventData, setNewEventData] = useState<TNewEvent | undefined>(
-    undefined
-  );
+  const [newCommunityData, setNewCommunityData] = useState<
+    TNewCommunity | undefined
+  >(undefined);
   const [isPreview, setIsPreview] = useState<boolean>(false);
 
   const chainId = chain?.id;
@@ -94,6 +99,8 @@ const EventForm = () => {
       // return;
     }
 
+    console.log(data);
+
     const newProfileName = !createNewProfile
       ? undefined
       : data.profilename
@@ -101,19 +108,24 @@ const EventForm = () => {
       : data.name;
 
     // todo: set up new event data wiring
-    const _newEventData: TNewEvent = {
+    const _newCommunityData: TNewCommunity = {
       profileId: "0x",
       useRegistryAnchor: false,
       profileName: newProfileName,
       name: "",
       website: "",
       description: "",
-      startDate: "",
-      endDate: "",
-      tokenAddress: "0x",
+      id: "0x",
+      raised: 0,
+      events: [],
+      members: [],
+      owner: "0x",
+      createdAt: "",
+      status: "Pending" as TCommunityStatus,
+      supportedTokens: [],
     };
 
-    setNewEventData(_newEventData);
+    setNewCommunityData(_newCommunityData);
     setIsPreview(true);
   };
 
@@ -121,7 +133,7 @@ const EventForm = () => {
     <div className="mx-2 md:mx-8">
       <div>
         <h1 className="text-3xl text-center mb-4 font-semibold text-gray-900">
-          New Event
+          New Community
         </h1>
       </div>
       {/* Section 1 - Profile Information */}
@@ -180,15 +192,15 @@ const EventForm = () => {
                 The registry profile ID for your organization, and will be
                 linked to your event.
               </p>
-              <div>
+              {/* <div>
                 {errors.profileId && (
                   <Error message={errors.profileId?.message!} />
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
 
-          {true && (
+          {/* {true && (
             <div className="sm:col-span-4">
               <label
                 htmlFor="name"
@@ -215,14 +227,14 @@ const EventForm = () => {
                 )}
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
-      {/* Section 2 - Event Information */}
+      {/* Section 2 - Community Information */}
       <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
         <div className="px-4 sm:px-0">
           <h2 className="text-base font-semibold leading-7 text-gray-900">
-            Event Information
+            Community Information
           </h2>
           <p className="mt-1 text-sm leading-6 text-gray-600">
             This information will be stored on IPFS and will be reviewed by the
@@ -241,7 +253,7 @@ const EventForm = () => {
                   htmlFor="website"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Event Name or Title
+                  Community Name
                 </label>
                 <div className="mt-2">
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -250,7 +262,7 @@ const EventForm = () => {
                       name="website"
                       id="website"
                       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                      placeholder="My Super Cool Public Goods Event"
+                      placeholder="My Super Cool Public Goods Community"
                     />
                   </div>
                 </div>
@@ -284,7 +296,7 @@ const EventForm = () => {
                   htmlFor="about"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Tell us about your event (why should I attend?)
+                  Tell us about your community (why should I join?)
                 </label>
                 <div className="mt-2">
                   <textarea
@@ -296,7 +308,7 @@ const EventForm = () => {
                   />
                 </div>
                 <p className="mt-3 text-sm leading-6 text-gray-500">
-                  Write a few sentences about your event and why it's great.
+                  Write a few sentences about your community and why it's great.
                 </p>
               </div>
 
@@ -701,4 +713,4 @@ const EventForm = () => {
   );
 };
 
-export default EventForm;
+export default CommunityForm;
