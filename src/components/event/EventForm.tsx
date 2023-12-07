@@ -8,7 +8,7 @@ import { TNewEvent, TProfilesByOwnerResponse } from "@/app/types";
 import Error from "@/components/Error";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useAccount, useNetwork } from "wagmi";
-import getProfilesByOwner from "@/utils/request";
+import getProfilesByOwner from "@/services/request";
 import { switchNetwork } from "wagmi/actions";
 
 const schema = yup.object({

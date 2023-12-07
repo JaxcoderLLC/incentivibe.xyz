@@ -5,23 +5,10 @@ import { initSilk } from "@silk-wallet/silk-wallet-sdk";
 import EventList from "@/components/event/EventList";
 import Hero from "@/components/Hero";
 import { Container } from "@/components/Container";
+import { useConnect } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
 
 const Home = () => {
-  useEffect(() => {
-    try {
-      setTimeout(() => {
-        const provider = initSilk();
-
-        // @ts-ignore
-        window.ethereum = provider;
-
-        console.log("provider", { eth: window.ethereum, provider });
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
-
   // TODO: fetch the actual stats we want to show
   const stats = [
     { id: 1, name: "Creators on the platform", value: "80+" },

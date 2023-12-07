@@ -28,21 +28,6 @@ const { publicClient, webSocketPublicClient } = configureChains(
   ]
 );
 
-try {
-  setTimeout(() => {
-    const provider = initSilk();
-
-    if (provider) {
-      // @ts-ignore
-      window.ethereum = provider;
-
-      console.log("Silk wallet injected");
-    }
-  });
-} catch (error) {
-  console.error(error);
-}
-
 // const connector = new InjectedConnector();
 
 export const wagmiConfig = createConfig({

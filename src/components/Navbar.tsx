@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -11,6 +11,8 @@ import ToastNotification from "./ToastNotification";
 // import { BellIcon } from "@heroicons/react/24/outline";
 import NavbarDropdown from "./NavbarDropdown";
 import { useAccount, useConnect, useEnsName } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
+import { initSilk } from "@silk-wallet/silk-wallet-sdk";
 
 const navigation = [
   // { name: "Redeem", href: "/redeem", current: false },
@@ -31,6 +33,9 @@ export default function Navbar() {
     });
   // const [profileId, setProfileId] = useState<`0x${string}`>("0x");
   const { address, isConnected } = useAccount();
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
   const { data: ensName } = useEnsName({ address });
 
   const userNavigation = [
@@ -40,6 +45,19 @@ export default function Navbar() {
     // { name: "My Profile", href: `/profile/${profileId}` },
     // { name: "Settings", href: "/settings" },
   ];
+
+  useEffect(() => {
+    try {
+      setTimeout(() => {
+        const provider = initSilk();
+
+        // @ts-ignore
+        window.ethereum = provider;
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   function setToast(...args: any[]) {
     setToastNotification({ show: true, args: args });
@@ -116,6 +134,7 @@ export default function Navbar() {
                     onClick={() => {
                       // @ts-ignore
                       window.ethereum.login();
+                      connect();
                     }}
                   >
                     login

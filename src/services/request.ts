@@ -2,7 +2,7 @@
 
 import { TProfileResponse, TProfilesByOwnerResponse } from "@/app/types";
 import request from "graphql-request";
-import { getProfile, getProfilesByOwnerQuery, graphqlEndpoint } from "./query";
+import { getProfile, getProfilesByOwnerQuery, graphqlEndpoint } from "../utils/query";
 
 const getProfilesByOwner = async ({
   chainId,
