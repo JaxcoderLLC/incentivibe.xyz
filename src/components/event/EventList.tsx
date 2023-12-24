@@ -2,7 +2,7 @@
 // import { Menu, Transition } from "@headlessui/react";
 // import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 
-import { TEventStatus, EEventStatus, TEvent, TEventList } from "@/app/types";
+import { TEventStatus, EEventStatus, TEvent, TEventList, TStatus } from "@/app/types";
 import { statuses } from "@/utils/common";
 import Link from "next/link";
 
@@ -10,7 +10,7 @@ const events: TEventList = [
   {
     id: "1",
     name: "FWD Party VIP Dinner",
-    status: EEventStatus.Pending,
+    status: "Pending" as TStatus,
     raised: 120e18,
     createdBy: "Leslie Alexander",
     createdAt: "2023-03-17T00:00Z",
@@ -20,7 +20,7 @@ const events: TEventList = [
   {
     id: "2",
     name: "Door Knockers Unite Rally",
-    status: EEventStatus.InProgress,
+    status: "InProgress" as TStatus,
     raised: 100e18,
     createdBy: "Leslie Alexander",
     createdAt: "2023-03-17T00:00Z",
@@ -30,7 +30,7 @@ const events: TEventList = [
   {
     id: "3",
     name: "Onboarding coffee hour",
-    status: EEventStatus.Rejected,
+    status: "Rejected" as TStatus,
     raised: 50e18,
     createdBy: "Courtney Henry",
     createdAt: "2023-03-17T00:00Z",
@@ -40,7 +40,7 @@ const events: TEventList = [
   {
     id: "4",
     name: "Will4Us Happy hour",
-    status: EEventStatus.Canceled,
+    status: "Canceled" as TStatus,
     raised: 0,
     createdBy: "Leonard Krasner",
     createdAt: "2023-03-17T00:00Z",
@@ -50,7 +50,7 @@ const events: TEventList = [
   {
     id: "5",
     name: "Open Civics Town Hall Social",
-    status: EEventStatus.Completed,
+    status: "Completed" as TStatus,
     raised: 100e18,
     createdBy: "Courtney Henry",
     createdAt: "2023-03-17T00:00Z",
@@ -66,7 +66,7 @@ function classNames(...classes: string[]) {
 const EventList = () => {
   return (
     <div className="px-8 pt-4">
-      <ul role="list" className="divide-y divide-gray-100">
+      <ul role="list" className="divide-y divide-neutral-700">
         {events.map((event) => (
           <li
             key={event.id}
@@ -96,10 +96,10 @@ const EventList = () => {
                 <p className="truncate">Created by {event.createdBy}</p>
               </div>
             </div>
-            <div className="flex flex-none items-center gap-x-4">
+            <div className="flex flex-none items-center gap-x-4 ">
               <Link
                 href={`/event/${event.id}`}
-                className="hidden rounded-md px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:block"
+                className="border mx-2 rounded-md px-4 py-2 text-sm font-medium border-gray-300 text-gray-700 hover:bg-gray-100 sm:block"
               >
                 View event<span className="sr-only">, {event.name}</span>
               </Link>
