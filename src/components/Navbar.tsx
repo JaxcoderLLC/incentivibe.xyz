@@ -1,18 +1,16 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { Fragment, useState } from "react";
 import logo from "../assets/IV_Logo_1.png";
 // import Dropdown from "./Dropdown";
 import ToastNotification from "./ToastNotification";
 // import { BellIcon } from "@heroicons/react/24/outline";
-import NavbarDropdown from "./NavbarDropdown";
-import { useAccount, useConnect, useEnsName } from "wagmi";
-import { InjectedConnector } from "wagmi/connectors/injected";
-import { initSilk } from "@silk-wallet/silk-wallet-sdk";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAccount, useEnsName } from "wagmi";
 
 const navigation = [
   { name: "New Community", href: "/community/new", current: false },
@@ -32,9 +30,6 @@ export default function Navbar() {
     });
   // const [profileId, setProfileId] = useState<`0x${string}`>("0x");
   const { address, isConnected } = useAccount();
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  });
   const { data: ensName } = useEnsName({ address });
 
   const userNavigation = [
@@ -42,18 +37,18 @@ export default function Navbar() {
     { name: "New Event", href: "/event/new", current: false },
   ];
 
-  useEffect(() => {
-    try {
-      setTimeout(() => {
-        const provider = initSilk();
+  // useEffect(() => {
+  //   try {
+  //     setTimeout(() => {
+  //       const provider = initSilk();
 
-        // @ts-ignore
-        window.ethereum = provider;
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
+  //       // @ts-ignore
+  //       window.ethereum = provider;
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, []);
 
   function setToast(...args: any[]) {
     setToastNotification({ show: true, args: args });
@@ -118,32 +113,27 @@ export default function Navbar() {
                 </div> */}
               </div>
               <div className="flex items-center">
-                {isConnected ? (
-                  <div>Hi, {ensName}</div>
-                ) : (
-                  <div>Not connected</div>
-                )}
+                  <ConnectButton showBalance={false} accountStatus={"address"} />
                 <div className="flex-shrink-0">
                   {/* Add wallet connect here */}
-                  <button
+                  {/* <button
                     className="border mx-2 border-gray-300 rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                     onClick={() => {
                       // @ts-ignore
-                      window.ethereum.login();
                       connect();
                     }}
                   >
-                    login
-                  </button>
-                  <button
+                    connect
+                  </button> */}
+                  {/* <button
                     className="border mx-2 border-gray-300 rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                     onClick={() => {
                       // @ts-ignore
-                      window.ethereum.loginSelector();
+                      // window.ethereum.loginSelector();
                     }}
                   >
                     loginSelector
-                  </button>
+                  </button> */}
                 </div>
                 <div className="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
                   {/* Notifications icon/button */}
