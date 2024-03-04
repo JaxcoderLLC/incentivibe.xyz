@@ -2,6 +2,7 @@
 
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import '@rainbow-me/rainbowkit/styles.css';
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useState } from "react";
@@ -113,7 +114,11 @@ export default function Navbar() {
                 </div> */}
               </div>
               <div className="flex items-center">
-                  <ConnectButton showBalance={false} accountStatus={"address"} />
+                <ConnectButton
+                  chainStatus={"icon"}
+                  showBalance={false}
+                  accountStatus={"address"}
+                />
                 <div className="flex-shrink-0">
                   {/* Add wallet connect here */}
                   {/* <button

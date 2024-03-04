@@ -2,22 +2,10 @@
 
 import { Container } from "@/components/Container";
 import Hero from "@/components/Hero";
+import '@rainbow-me/rainbowkit/styles.css';
 import CommunityList from "./commuinity/CommunityList";
 
 const Home = () => {
-  // useEffect(() => {
-  //   try {
-  //     setTimeout(() => {
-  //       const provider = initSilk();
-
-  //       // @ts-ignore
-  //       window.ethereum = provider;
-  //       // provider.login();
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, []);
 
 
   // TODO: fetch the actual stats we want to show
