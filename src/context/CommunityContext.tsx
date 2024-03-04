@@ -2,9 +2,8 @@
 
 import { createContext, useEffect, useState } from "react";
 import {
-  TCommunityStatus,
   ICommunityContextProps,
-  ICommunityList,
+  TCommunityStatus,
   TStatus,
 } from "../app/types";
 
@@ -22,7 +21,7 @@ export const CommunityContextProvider = (props: {
 }) => {
   const { children } = props;
   const [isLoaded, setIsLoaded] = useState(false);
-  const [communities, setCommunitys] = useState<ICommunityList>();
+  const [communities, setCommunitys] = useState<any>();
   const [eventStatus, setCommunityStatus] = useState<TStatus>(
     "Pending" as TStatus
   );
@@ -56,8 +55,7 @@ export const CommunityContextProvider = (props: {
         communities,
         createCommunity,
         updateCommunity,
-        eventStatus,
-        setCommunityStatus,
+        eventStatus
       }}
     >
       {children}
