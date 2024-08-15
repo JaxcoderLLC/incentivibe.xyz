@@ -12,9 +12,8 @@ import {
 } from "@/app/types";
 import Error from "@/components/Error";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
-import { useAccount, useNetwork } from "wagmi";
+import { useAccount, useChainId, useSwitchChain } from "wagmi";
 import getProfilesByOwner from "@/services/request";
-import { switchNetwork } from "wagmi/actions";
 
 const schema = yup.object({
   // profileId: yup
@@ -46,8 +45,9 @@ const CommunityForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const { chain } = useNetwork();
+  const chainId = useChainId();
   const { address } = useAccount();
+  const switchChain = useSwitchChain();
 
   const [createNewProfile, setCreateNewProfile] = useState<boolean>(false);
   const [profiles, setProfiles] = useState<TProfilesByOwnerResponse[]>([]);
@@ -55,8 +55,6 @@ const CommunityForm = () => {
     TNewCommunity | undefined
   >(undefined);
   const [isPreview, setIsPreview] = useState<boolean>(false);
-
-  const chainId = chain?.id;
 
   // todo: fetch profiles from registry
   useEffect(() => {
@@ -83,16 +81,16 @@ const CommunityForm = () => {
     };
 
     fetchProfiles();
-  }, [chain, address]);
+  }, [chainId, address]);
 
   const handleSwitchNetwork = async () => {
-    switchNetwork?.({ chainId: 5 });
+    switchChain?.({ chainId: 5 });
 
     // todo: update steps...
   };
 
   const onHandlePreview = async (data: any) => {
-    if (Number(chain!.id) !== 5) {
+    if (Number(chainId) !== 5) {
       setIsPreview(false);
       await handleSwitchNetwork();
 
@@ -308,7 +306,8 @@ const CommunityForm = () => {
                   />
                 </div>
                 <p className="mt-3 text-sm leading-6 text-gray-500">
-                  Write a few sentences about your community and why it's great.
+                  Write a few sentences about your community and why it&apos;s
+                  great.
                 </p>
               </div>
 

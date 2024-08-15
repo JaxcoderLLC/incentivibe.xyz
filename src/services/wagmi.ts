@@ -1,14 +1,15 @@
 "use client";
 
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
-import '@rainbow-me/rainbowkit/styles.css';
+import "@rainbow-me/rainbowkit/styles.css";
 import { config } from "dotenv";
 import {
   arbitrumSepolia,
   base,
+  baseSepolia,
   optimismSepolia,
   sepolia,
-  zora
+  zora,
 } from "wagmi/chains";
 
 config();
@@ -16,7 +17,7 @@ config();
 export const wagmiConfig = getDefaultConfig({
   appName: "Incentivibe",
   projectId: "31b0b6255ee5cc68ae76cab5fa96a9a0",
-  chains: [sepolia, optimismSepolia, arbitrumSepolia, base, zora],
+  chains: [sepolia, optimismSepolia, arbitrumSepolia, base, baseSepolia, zora],
   ssr: true, // If your dApp uses server side rendering (SSR)
 });
 
