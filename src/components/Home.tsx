@@ -2,11 +2,14 @@
 
 import { Container } from "@/components/Container";
 import Hero from "@/components/Hero";
-import '@rainbow-me/rainbowkit/styles.css';
+import "@rainbow-me/rainbowkit/styles.css";
 import CommunityList from "./commuinity/CommunityList";
+import { capsule } from "@/services/capsule";
+import { CapsuleModal } from "@usecapsule/react-sdk";
+import { useState } from "react";
 
 const Home = () => {
-
+  const [isOpen, setIsOpen] = useState(false);
 
   // TODO: fetch the actual stats we want to show
   const stats = [
@@ -21,6 +24,12 @@ const Home = () => {
       <Container>
         <Hero stats={stats} />
         <CommunityList />
+        <button onClick={() => setIsOpen(true)}>Sign in with Capsule</button>
+        <CapsuleModal
+          capsule={capsule}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+        />
       </Container>
     </main>
   );
