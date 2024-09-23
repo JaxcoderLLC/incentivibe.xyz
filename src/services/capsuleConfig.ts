@@ -6,7 +6,7 @@ import { sepolia } from "wagmi/chains";
 import { createClient, http } from "viem";
 
 // Capsule configuration
-const CAPSULE_API_KEY = "your-api-key-here";
+const CAPSULE_API_KEY = process.env.NEXT_PUBLIC_CAPSULE_API_KEY as string;
 const CAPSULE_ENVIRONMENT = Environment.DEVELOPMENT; // Use Environment.PRODUCTION for live apps
 
 const capsuleWalletOptions = {
