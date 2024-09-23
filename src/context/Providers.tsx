@@ -5,7 +5,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import { EventContextProvider } from "./EventContext";
-import { config } from "@/services/capsuleConfig";
+import { connectors, config } from "@/services/capsuleConfig";
 
 const queryClient = new QueryClient();
 

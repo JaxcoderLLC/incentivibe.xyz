@@ -2,7 +2,7 @@ import { Environment, OAuthMethod } from "@usecapsule/react-sdk";
 import { getCapsuleWallet } from "@usecapsule/rainbowkit-wallet";
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import { createConfig } from "wagmi";
-import { sepolia } from "wagmi/chains";
+import { base, baseSepolia } from "wagmi/chains";
 import { createClient, http } from "viem";
 
 // Capsule configuration
@@ -42,7 +42,7 @@ const connectors = connectorsForWallets(
 // Wagmi client configuration
 const config = createConfig({
   connectors,
-  chains: [sepolia],
+  chains: [base, baseSepolia],
   client: ({ chain }) => createClient({ chain, transport: http() }),
 });
 

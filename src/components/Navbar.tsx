@@ -2,7 +2,7 @@
 
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import '@rainbow-me/rainbowkit/styles.css';
+import "@rainbow-me/rainbowkit/styles.css";
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useState } from "react";
@@ -12,6 +12,8 @@ import ToastNotification from "./ToastNotification";
 // import { BellIcon } from "@heroicons/react/24/outline";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useEnsName } from "wagmi";
+import { CapsuleModal } from "@usecapsule/rainbowkit-wallet";
+import { capsule } from "@/services/capsule";
 
 const navigation = [
   { name: "New Community", href: "/community/new", current: false },
@@ -32,6 +34,7 @@ export default function Navbar() {
   // const [profileId, setProfileId] = useState<`0x${string}`>("0x");
   const { address, isConnected } = useAccount();
   const { data: ensName } = useEnsName({ address });
+  const [isOpen, setIsOpen] = useState(false);
 
   const userNavigation = [
     { name: "New Community", href: "/community/new", current: false },
@@ -139,6 +142,14 @@ export default function Navbar() {
                   >
                     loginSelector
                   </button> */}
+                  {/* <button className="ml-4" onClick={() => setIsOpen(true)}>
+                    Sign in with Capsule
+                  </button>
+                  <CapsuleModal
+                    capsule={capsule}
+                    isOpen={isOpen}
+                    onClose={() => setIsOpen(false)}
+                  /> */}
                 </div>
                 <div className="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
                   {/* Notifications icon/button */}

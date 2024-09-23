@@ -24,12 +24,12 @@ const Home = () => {
       <Container>
         <Hero stats={stats} />
         <CommunityList />
-        <button onClick={() => setIsOpen(true)}>Sign in with Capsule</button>
+        {/* <button onClick={() => setIsOpen(true)}>Sign in with Capsule</button>
         <CapsuleModal
           capsule={capsule}
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
-        />
+        /> */}
       </Container>
     </main>
   );
